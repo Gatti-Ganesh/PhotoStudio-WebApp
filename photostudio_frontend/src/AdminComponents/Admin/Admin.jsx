@@ -5,6 +5,7 @@ import { Dashboard } from '../Dashboard/Dashboard'
 import { AdminBookings } from '../AdminBookings/AdminBookings'
 import { Clients } from '../Clients/Clients'
 import { Albums } from '../Albums/Albums'
+import { CreateAlbum } from '../Albums/CreateAlbum'
 
 export const Admin = () => {
     const handleClose=()=>{
@@ -23,6 +24,7 @@ export const Admin = () => {
                 <Route path='/bookings' element={<AdminBookings/>}></Route>
                 <Route path='/all-clients' element={<Clients/>}></Route>
                 <Route path='/client-albums' element={<Albums/>}></Route>
+                <Route path='/create-album' element={<CreateAlbum/>}></Route>
                 
               </Routes>
           </div>

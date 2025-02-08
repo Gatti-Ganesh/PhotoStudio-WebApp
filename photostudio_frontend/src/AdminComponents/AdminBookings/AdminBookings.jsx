@@ -4,6 +4,7 @@ import { api } from '../../usercomponents/config/api';
 import { formatTimeTo12Hour } from '../../usercomponents/Booking/MyBookings';
 import { updateBookingStatus } from '../../usercomponents/State/Booking/Action';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const orderStatus=[
     {lable:"Pending",value:"PANDING"},
@@ -14,9 +15,10 @@ const orderStatus=[
   ]
 
 export const AdminBookings = () => {
-    
+    const navigate=useNavigate();
     const jwt = localStorage.getItem("jwt");
     const dispatch=useDispatch();
+    
       const [anchorEl, setAnchorEl] = React.useState(null);
       const [activeOrderId, setActiveOrderId] = React.useState(null);
       const open = Boolean(anchorEl);
@@ -31,7 +33,7 @@ export const AdminBookings = () => {
      
 
       const [bookings, setBookings] = useState([]);
-
+    
       useEffect(() => {
         const fetchBookings = async () => {
           
@@ -42,6 +44,7 @@ export const AdminBookings = () => {
               },
             });
             setBookings(response.data);
+          
           } catch (error) {
             console.error("Error fetching bookings:", error);
           }
@@ -49,7 +52,7 @@ export const AdminBookings = () => {
       
         fetchBookings();
       }, []);
-     
+      
       const handleUpdateOrder = async (orderId, orderStatus) => {
         try {
           // Dispatch the update action
@@ -68,6 +71,11 @@ export const AdminBookings = () => {
         } catch (error) {
           console.error("Error updating order status:", error);
         }
+      };
+
+      const handleCreateAlbum= (bookingId) => {
+       
+        navigate(`/admin/create-album`, { state: { bookingId } });
       };
 
   return (
@@ -96,6 +104,7 @@ export const AdminBookings = () => {
                        <TableCell align="left">EventAddress</TableCell>
                        <TableCell align="left">Status</TableCell>
                        <TableCell align="left">Update</TableCell>
+                       <TableCell align="left">Create Album</TableCell>
                    </TableRow>
                    </TableHead>
                    <TableBody>
@@ -166,6 +175,24 @@ export const AdminBookings = () => {
                           </MenuItem>
                         ))}
                       </Menu>
+                       </TableCell>
+                       <TableCell align="left">
+                       {item.status === "EDITINGCOMPLETE" && (
+                          <Button
+                            variant="contained"
+                            color="primary"
+                             onClick={() => handleCreateAlbum(item.eventId)}
+                            sx={{
+                              backgroundColor: "#4CAF50",
+                              color: "white",
+                              "&:hover": {
+                                backgroundColor: "#388E3C",
+                              },
+                            }}
+                          >
+                            Add Album
+                          </Button>
+                        )}
                        </TableCell>
                        </TableRow>
                    ))} 
