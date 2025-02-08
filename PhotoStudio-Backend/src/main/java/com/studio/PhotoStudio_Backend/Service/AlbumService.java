@@ -15,4 +15,6 @@ public interface AlbumService {
 	public List<Album> getAllPublishedAlbums();
 	
 	public Album findAlbumByBookingEventId(Long bookingEventId);
+	
+	public boolean deleteAlbum(Long albumId);
 }

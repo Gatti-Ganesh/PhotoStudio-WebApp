@@ -15,6 +15,7 @@ import com.studio.PhotoStudio_Backend.entity.User;
 @Service
 public class BookingServiceImp implements BookingService{
 
+	
 	@Autowired
 	private BookingRepository bookingRepo;
 	
@@ -99,5 +100,11 @@ public class BookingServiceImp implements BookingService{
 			return bookingRepo.save(booking);
 		}
 		throw new Exception("Please Select a valid order status");
+	}
+
+	@Override
+	public List<Booking> findByStatus(String status) {
+		
+		return bookingRepo.findByStatus(status);
 	}
 }

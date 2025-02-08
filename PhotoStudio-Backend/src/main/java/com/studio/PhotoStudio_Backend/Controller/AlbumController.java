@@ -3,7 +3,9 @@ package com.studio.PhotoStudio_Backend.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,14 +24,14 @@ public class AlbumController {
 	@Autowired
 	private AlbumService albumService;
 	
-	@PostMapping("/{bookingId}/album")
+	@PostMapping("/admin/booking/{bookingId}/album/addAlbum")
 	public ResponseEntity<Album> createAlbum(@PathVariable Long bookingId, @RequestBody Album album,@RequestHeader("Authorization") String jwt) throws Exception{
 		Album createAlbum = albumService.createAlbum(bookingId, album);
 		return ResponseEntity.ok(createAlbum);
 	}
 	
 	@GetMapping("/albums")
-	public ResponseEntity<List<Album>> getAllAlbums(@RequestHeader("Authorization") String jwt){
+	public ResponseEntity<List<Album>> getAllAlbums(){
 		List<Album> allAlbums=albumService.getAllAlbums();
 		return ResponseEntity.ok(allAlbums);
 	}
@@ -41,6 +43,15 @@ public class AlbumController {
 		
 	}
 	
+	@DeleteMapping("/admin/albums/{albumId}/delete")
+	public ResponseEntity<String> deleteAlbumById(@PathVariable Long albumId, @RequestHeader("Authorization") String jwt) {
+		boolean deleted= albumService.deleteAlbum(albumId);
+		if (deleted) {
+	        return ResponseEntity.ok("Album Deleted Successfully!");
+	    } else {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Album Not Found!");
+	    }
+	}
 	
 	
 }

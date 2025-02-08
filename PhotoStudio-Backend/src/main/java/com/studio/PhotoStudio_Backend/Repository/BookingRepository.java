@@ -10,4 +10,6 @@ import com.studio.PhotoStudio_Backend.entity.Booking;
 public interface BookingRepository extends JpaRepository<Booking, Long>{
       public List<Booking> findByUserId(Long userId);
       
+      public List<Booking> findByStatus(String status);
+      
 }

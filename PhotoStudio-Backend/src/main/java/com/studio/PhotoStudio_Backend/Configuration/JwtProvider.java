@@ -36,12 +36,13 @@ public class JwtProvider {
 				.signWith(key,SignatureAlgorithm.HS512)
 				.compact();
 		
+		
 		return jwt;
 	}
 	
 	
 	public String getEmailFromJwtToken(String jwt) {
-		System.out.println("jwt : "+jwt);
+	
 		jwt=jwt.substring(7);
 		Claims claims =Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(jwt).getBody();
 		

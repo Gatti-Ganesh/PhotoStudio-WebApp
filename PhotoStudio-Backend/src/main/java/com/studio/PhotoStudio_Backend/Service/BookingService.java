@@ -13,5 +13,5 @@ public interface BookingService {
 	
 	public Booking updtaeBookingStatus(Long bookingId,String status) throws Exception;
 	
-	
+	public List<Booking> findByStatus(String status);
 }

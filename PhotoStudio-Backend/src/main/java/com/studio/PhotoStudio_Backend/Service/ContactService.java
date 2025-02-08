@@ -16,7 +16,7 @@ public class ContactService {
 	public void sendContactEmail(ContactUsFormRequest req) {
 		
 		SimpleMailMessage msg =new SimpleMailMessage();
-		System.out.println("user Email : "+req.getEmail());
+		
 		//msg.setFrom(req.getEmail());
 		msg.setTo("gatti.ganesh33372@gmail.com");
 		msg.setReplyTo(req.getEmail());
